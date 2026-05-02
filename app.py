@@ -3,9 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# ============================================================
-# PAGE CONFIG
-# ============================================================
+
 
 st.set_page_config(
     page_title="Global Workload Rerouter Dashboard",
@@ -13,9 +11,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# ============================================================
-# CUSTOM CSS
-# ============================================================
 
 st.markdown("""
 <style>
@@ -103,13 +98,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ============================================================
-# LOAD DATA
-# ============================================================
+
 
 @st.cache_data
 def load_data():
-    routing_df = pd.read_csv("dashboard_routing_fact.csv")
+    routing_df = pd.read_csv("dashboard_routing.csv")
     energy_df = pd.read_csv("energy_rate.csv")
 
     # Clean column names
@@ -181,9 +174,7 @@ def load_data():
 
 routing_df, energy_df = load_data()
 
-# ============================================================
-# HEADER
-# ============================================================
+
 
 st.markdown("""
 <div class="dashboard-title">Global Workload Rerouter Dashboard</div>
@@ -192,9 +183,7 @@ Synthetic AI infrastructure dashboard showing energy-cost exposure, workload-rou
 </div>
 """, unsafe_allow_html=True)
 
-# ============================================================
-# SIDEBAR FILTERS
-# ============================================================
+
 
 st.sidebar.title("Dashboard Filters")
 st.sidebar.caption("Use these controls to analyse routing cost, service impact and crisis exposure.")
@@ -229,9 +218,6 @@ selected_crisis = st.sidebar.multiselect(
     default=sorted(routing_df["crisis_status"].dropna().unique())
 )
 
-# ============================================================
-# FILTER DATA
-# ============================================================
 
 filtered = routing_df[
     routing_df["cityname"].isin(selected_regions) &
@@ -250,9 +236,7 @@ if filtered.empty:
     st.warning("No records match the selected filters.")
     st.stop()
 
-# ============================================================
-# KPI CALCULATIONS
-# ============================================================
+
 
 total_cost = filtered["estimatedcost_usd"].sum()
 total_jobs = filtered["logid_pk"].count()
@@ -263,9 +247,7 @@ avg_latency = filtered["estimatedlatency_ms"].mean()
 avg_queue = filtered["queuetime_minutes"].mean()
 avg_energy_rate = filtered["costper_kwh_usd"].mean()
 
-# ============================================================
-# KPI CARDS
-# ============================================================
+
 
 kpi_cols = st.columns(4)
 
@@ -321,9 +303,7 @@ with kpi_cols_2[3]:
 
 st.markdown("---")
 
-# ============================================================
-# EXECUTIVE INSIGHT SUMMARY
-# ============================================================
+
 
 highest_region = (
     filtered.groupby("cityname")["estimatedcost_usd"]
@@ -347,9 +327,7 @@ This helps leadership identify where cost exposure is concentrated.
 </div>
 """, unsafe_allow_html=True)
 
-# ============================================================
-# MAIN VISUALS
-# ============================================================
+
 
 left_col, right_col = st.columns([1.2, 1])
 
@@ -406,9 +384,7 @@ with right_col:
 
     st.plotly_chart(fig_status, use_container_width=True)
 
-# ============================================================
-# SECOND ROW VISUALS
-# ============================================================
+
 
 left_col2, right_col2 = st.columns(2)
 
@@ -477,9 +453,7 @@ with right_col2:
 
     st.plotly_chart(fig_priority, use_container_width=True)
 
-# ============================================================
-# CLIENT SUMMARY TABLE
-# ============================================================
+
 
 st.markdown('<div class="section-heading">Client Cost and Service Impact Summary</div>', unsafe_allow_html=True)
 
@@ -505,9 +479,7 @@ st.dataframe(
     hide_index=True
 )
 
-# ============================================================
-# RAW DATA EXPANDER
-# ============================================================
+
 
 with st.expander("View filtered routing records"):
     st.dataframe(filtered, use_container_width=True, hide_index=True)
