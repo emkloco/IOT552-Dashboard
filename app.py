@@ -158,7 +158,7 @@ st.markdown("""
 
 @st.cache_data
 def load_data():
-    routing_df = pd.read_csv("dashboard_routing_fact.csv")
+    routing_df = pd.read_csv("dashboard_routing.csv")
     energy_df = pd.read_csv("energy_rate.csv")
 
     # Clean column names
