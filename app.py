@@ -24,7 +24,7 @@ st.markdown("""
     font-size: 2.55rem;
     font-weight: 850;
     color: #0F172A;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.01rem;
 }
 
 .dashboard-subtitle {
