@@ -16,7 +16,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 1rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
 }
 
