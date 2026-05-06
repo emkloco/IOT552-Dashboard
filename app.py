@@ -302,7 +302,7 @@ latency_threshold = st.sidebar.slider(
     "Acceptable latency threshold ms",
     min_value=40,
     max_value=150,
-    value=100,
+    value=60,
     step=5
 )
 
