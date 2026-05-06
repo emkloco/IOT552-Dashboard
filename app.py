@@ -16,7 +16,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 1.4rem;
+    padding-top: 1rem;
     padding-bottom: 2rem;
 }
 
@@ -24,7 +24,7 @@ st.markdown("""
     font-size: 2.55rem;
     font-weight: 850;
     color: #0F172A;
-    margin-bottom: 0.01rem;
+    margin-bottom: 0.1rem;
 }
 
 .dashboard-subtitle {
